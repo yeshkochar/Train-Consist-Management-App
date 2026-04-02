@@ -1,44 +1,44 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
+// Bogie class (extended with type)
 class Bogie {
-    String name;
+    int id;
     int capacity;
+    String type; // e.g., Sleeper, AC, General
 
-    // Constructor
-    Bogie(String name, int capacity) {
-        this.name = name;
+    Bogie(int id, int capacity, String type) {
+        this.id = id;
         this.capacity = capacity;
+        this.type = type;
     }
 
-    // toString() for clean output
+    @Override
     public String toString() {
-        return name + " (" + capacity + " seats)";
+        return "ID: " + id + ", Capacity: " + capacity + ", Type: " + type;
     }
 }
 
-public class TrainApp {
-
+public class UC9_GroupBogies {
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
-
-        // Create List of Bogie objects
+        // Reuse / create bogie list
         List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie(1, 50, "General"));
+        bogies.add(new Bogie(2, 75, "AC"));
+        bogies.add(new Bogie(3, 60, "Sleeper"));
+        bogies.add(new Bogie(4, 90, "AC"));
+        bogies.add(new Bogie(5, 40, "General"));
 
-        // Add bogies
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
+        // Grouping using Stream API
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.type));
 
-        // Sort using Comparator (by capacity)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
-
-        // Display sorted bogies
-        System.out.println("Bogies sorted by capacity:");
-        for (Bogie b : bogies) {
-            System.out.println(b);
-        }
-
-        // Program continues...
+        // Display grouped result
+        System.out.println("Grouped Bogies:");
+        groupedBogies.forEach((key, value) -> {
+            System.out.println("\nType: " + key);
+            value.forEach(System.out::println);
+        });
     }
 }
