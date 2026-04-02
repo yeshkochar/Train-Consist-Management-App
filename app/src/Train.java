@@ -1,4 +1,5 @@
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainApp {
 
@@ -6,27 +7,21 @@ public class TrainApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create LinkedList for train consist
-        LinkedList<String> train = new LinkedList<>();
+        // Create HashMap for bogie-capacity mapping
+        HashMap<String, Integer> bogieCapacity = new HashMap<>();
 
-        // Add bogies (initial order)
-        train.add("Engine");
-        train.add("Sleeper");
-        train.add("AC");
-        train.add("Cargo");
-        train.add("Guard");
+        // Insert key–value pairs (bogie → capacity)
+        bogieCapacity.put("Sleeper", 72);
+        bogieCapacity.put("AC Chair", 60);
+        bogieCapacity.put("First Class", 40);
 
-        System.out.println("Initial Train: " + train);
+        // Iterate using entrySet()
+        System.out.println("Bogie Capacity Details:");
 
-        // Insert Pantry Car at position 2 (index starts from 0)
-        train.add(2, "Pantry Car");
-        System.out.println("After adding Pantry Car: " + train);
+        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue() + " seats");
+        }
 
-        // Remove first and last bogie
-        train.removeFirst();
-        train.removeLast();
-
-        // Final train consist
-        System.out.println("Final Train Consist: " + train);
+        // Program continues...
     }
 }
